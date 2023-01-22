@@ -1,0 +1,49 @@
+export const DesktopIcon = () => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='192'
+      height='192'
+      fill='#000000'
+      viewBox='0 0 256 256'
+    >
+      <rect
+        x='24'
+        y='56'
+        width='208'
+        height='144'
+        rx='8'
+        fill='none'
+        strokeLinecap='round'
+        strokeWidth='24'
+      ></rect>
+      <line
+        x1='164'
+        y1='164'
+        x2='196'
+        y2='164'
+        fill='none'
+        strokeLinecap='round'
+        strokeWidth='24'
+      ></line>
+      <line
+        x1='108'
+        y1='164'
+        x2='124'
+        y2='164'
+        fill='none'
+        strokeLinecap='round'
+        strokeWidth='24'
+      ></line>
+      <line
+        x1='24'
+        y1='96.9'
+        x2='232'
+        y2='96.9'
+        fill='none'
+        strokeLinecap='round'
+        strokeWidth='24'
+      ></line>
+    </svg>
+  );
+};
