@@ -11,7 +11,7 @@ import { RecentsIcon } from '../assets/RecentsIcon';
 import { XIcon } from '../assets/XIcon';
 import { SideMenuContainer } from './SideMenuContainer';
 
-export const OpenFolder = ({ file, setOpenFolders }) => {
+export const OpenFolder = ({ file, setOpenFolders, setItemsFullScreen }) => {
   const favList = [
     { icon: <AirDropIcon />, label: 'AirDrop' },
     { icon: <RecentsIcon />, label: 'Recents' },
@@ -31,9 +31,9 @@ export const OpenFolder = ({ file, setOpenFolders }) => {
     navCName += ' icons-visible';
   }
 
-  let folderCName = 'open-folder-container';
+  let folderCName = 'open-file-container';
   if (fullScreen) {
-    folderCName += ' full-screen';
+    folderCName += ' file-full-screen';
   }
 
   const toggleIconsVisible = (bool) => {
@@ -50,12 +50,21 @@ export const OpenFolder = ({ file, setOpenFolders }) => {
 
   const handleFullScreen = () => {
     setFullScreen((prev) => !prev);
+    setItemsFullScreen((prev) => {
+      let copy = [...prev];
+      if (copy.includes(file.id)) {
+        copy = copy.filter((id) => id !== file.id);
+      } else {
+        copy.push(file.id);
+      }
+      return copy;
+    });
   };
 
   return (
     <div className={folderCName}>
-      <div className='open-folder-container_sidebar'>
-        <div className='open-folder-container_sidebar--top'>
+      <div className='open-file-container_sidebar'>
+        <div className='open-file-container_sidebar--top'>
           <div
             className={navCName}
             onClick={handleClose}
@@ -88,8 +97,8 @@ export const OpenFolder = ({ file, setOpenFolders }) => {
           <SideMenuContainer title='iCloud' options={iList} />
         </div>
       </div>
-      <div className='open-folder-container_main'>
-        <div className='open-folder-container_main--top'>
+      <div className='open-file-container_main'>
+        <div className='open-file-container_main--top'>
           <div className='chevron-container'>
             <div className='chevron-back'>
               <ChevronIcon />

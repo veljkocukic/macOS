@@ -1,18 +1,25 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import './App.css';
 import { BottomBar } from './components/BottomBar';
 import { Icon } from './components/Icon/Icon';
 import { OpenFolder } from './components/OpenFolder';
+import { OpenPdf } from './components/OpenPdf';
 import { RightClickMenu } from './components/RightClickMenu';
 import { TopBar } from './components/TopBar';
+import { DataContext } from './Context';
 import { files } from './files';
 
 function App() {
   const backgroundRef = useRef();
   const [openFolders, setOpenFolders] = useState([]);
+  const [openPdfs, setOpenPdfs] = useState([]);
   const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
   const [menuOpen, setMenuOpen] = useState(false);
   const [desktopFiles, setDesktopFiles] = useState(files);
+  const [itemsFullScreen, setItemsFullScreen] = useState([]);
+  const [trash, setTrash] = useState([]);
+  const { currentlyDragging, setCurrentlyDragging } = useContext(DataContext);
+
   const handleRightClick = (e) => {
     e.preventDefault();
     if (e.type === 'contextmenu') {
@@ -58,8 +65,9 @@ function App() {
       className='desktop-background'
       onClick={handleClick}
       onContextMenu={handleRightClick}
+      style={{ position: 'relative' }}
     >
-      <TopBar />
+      <TopBar disappear={itemsFullScreen.length > 0} />
       {desktopFiles.map((file) => {
         return (
           <Icon
@@ -69,6 +77,7 @@ function App() {
             key={file.id}
             defaultPosition={file.defaultPosition}
             setOpenFolders={setOpenFolders}
+            setOpenPdfs={setOpenPdfs}
             newFolder={!files.some((f) => f.id === file.id)}
           />
         );
@@ -78,12 +87,25 @@ function App() {
           key={id}
           setOpenFolders={setOpenFolders}
           file={desktopFiles.find((f) => f.id === id)}
+          setItemsFullScreen={setItemsFullScreen}
+        />
+      ))}
+      {openPdfs.map((id) => (
+        <OpenPdf
+          key={id}
+          setOpenPdfs={setOpenPdfs}
+          file={desktopFiles.find((f) => f.id === id)}
+          setItemsFullScreen={setItemsFullScreen}
         />
       ))}
       {menuOpen && (
         <RightClickMenu options={menuOptions} position={menuPosition} />
       )}
-      <BottomBar />
+      <BottomBar
+        trash={trash}
+        setTrash={setTrash}
+        disappear={itemsFullScreen.length > 0}
+      />
     </div>
   );
 }

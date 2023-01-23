@@ -1,10 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { DataContext } from '../../Context';
+import PdfIcon from '../../assets/pdf-icon.png';
 
 export const Icon = ({
   text,
   id,
   defaultPosition,
   setOpenFolders,
+  setOpenPdfs,
   type,
   newFolder,
 }) => {
@@ -14,6 +17,7 @@ export const Icon = ({
   const [currentPosition, setCurrentPosition] = useState(defaultPosition);
   const [name, setName] = useState(text);
   const inputRef = useRef();
+  const { currentlyDragging, setCurrentlyDragging } = useContext(DataContext);
 
   useEffect(() => {
     if (nameEditing) {
@@ -47,13 +51,24 @@ export const Icon = ({
 
   const handleDoubleClick = () => {
     setHighlight(true);
-    setOpenFolders((prev) => {
-      const copy = [...prev];
-      if (!copy.includes(id)) {
-        copy.push(id);
-      }
-      return copy;
-    });
+
+    if (type === 'folder') {
+      setOpenFolders((prev) => {
+        const copy = [...prev];
+        if (!copy.includes(id)) {
+          copy.push(id);
+        }
+        return copy;
+      });
+    } else {
+      setOpenPdfs((prev) => {
+        const copy = [...prev];
+        if (!copy.includes(id)) {
+          copy.push(id);
+        }
+        return copy;
+      });
+    }
   };
 
   let iconImage = '';
@@ -62,9 +77,13 @@ export const Icon = ({
       iconImage =
         'https://cdn.icon-icons.com/icons2/2963/PNG/512/macos_big_sur_folder_icon_186046.png';
       break;
+    case 'pdf':
+      iconImage = PdfIcon;
+      break;
     default:
       iconImage =
         'https://cdn.icon-icons.com/icons2/2963/PNG/512/macos_big_sur_folder_icon_186046.png';
+      break;
   }
 
   let cName = 'icon-container';

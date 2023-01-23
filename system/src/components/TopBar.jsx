@@ -2,7 +2,7 @@ import { UpFilledIcon } from '../assets/UpFilledIcon';
 import { daysOfTheWeek, months } from '../assets/data';
 import { addZero } from '../utils/helpers';
 
-export const TopBar = () => {
+export const TopBar = ({ disappear }) => {
   const finderList = [
     <UpFilledIcon />,
     'Searcher',
@@ -20,8 +20,14 @@ export const TopBar = () => {
       months[now.getMonth()]
     } ${addZero(now.getHours())}:${addZero(now.getMinutes())}`;
   };
+
+  let cName = 'top-bar-container';
+  if (disappear) {
+    cName += ' disappear-top';
+  }
+
   return (
-    <div className='top-bar-container'>
+    <div className={cName}>
       <div className='top-bar-current-program'>
         {finderList.map((i, k) => (
           <div className='top-bar-current-program__option' key={k}>
