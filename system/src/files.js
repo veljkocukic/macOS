@@ -15,4 +15,11 @@ export const files = [
     content: CV,
     defaultPosition: { top: 150, left: 5 },
   },
+  {
+    id: 3,
+    name: 'someNotes.txt',
+    type: 'text',
+    content: 'Some placeholder text for now',
+    defaultPosition: { top: 260, left: 5 },
+  },
 ];

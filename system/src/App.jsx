@@ -4,6 +4,7 @@ import { BottomBar } from './components/BottomBar';
 import { Icon } from './components/Icon/Icon';
 import { OpenFolder } from './components/OpenFolder';
 import { OpenPdf } from './components/OpenPdf';
+import { OpenText } from './components/OpenText';
 import { RightClickMenu } from './components/RightClickMenu';
 import { TopBar } from './components/TopBar';
 import { DataContext } from './Context';
@@ -13,6 +14,7 @@ function App() {
   const backgroundRef = useRef();
   const [openFolders, setOpenFolders] = useState([]);
   const [openPdfs, setOpenPdfs] = useState([]);
+  const [openTextFiles, setOpenTextFiles] = useState([]);
   const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
   const [menuOpen, setMenuOpen] = useState(false);
   const [desktopFiles, setDesktopFiles] = useState(files);
@@ -76,6 +78,7 @@ function App() {
             id={file.id}
             key={file.id}
             defaultPosition={file.defaultPosition}
+            setOpenTextFiles={setOpenTextFiles}
             setOpenFolders={setOpenFolders}
             setOpenPdfs={setOpenPdfs}
             newFolder={!files.some((f) => f.id === file.id)}
@@ -98,6 +101,15 @@ function App() {
           setItemsFullScreen={setItemsFullScreen}
         />
       ))}
+      {openTextFiles.map((id) => (
+        <OpenText
+          key={id}
+          setOpenTextFiles={setOpenTextFiles}
+          file={desktopFiles.find((f) => f.id === id)}
+          setItemsFullScreen={setItemsFullScreen}
+        />
+      ))}
+
       {menuOpen && (
         <RightClickMenu options={menuOptions} position={menuPosition} />
       )}

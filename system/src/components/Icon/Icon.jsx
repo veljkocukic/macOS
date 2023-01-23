@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { DataContext } from '../../Context';
 import PdfIcon from '../../assets/pdf-icon.png';
+import TextIcon from '../../assets/ticon.png';
 
 export const Icon = ({
   text,
   id,
+  setOpenTextFiles,
   defaultPosition,
   setOpenFolders,
   setOpenPdfs,
@@ -60,8 +62,16 @@ export const Icon = ({
         }
         return copy;
       });
-    } else {
+    } else if (type === 'pdf') {
       setOpenPdfs((prev) => {
+        const copy = [...prev];
+        if (!copy.includes(id)) {
+          copy.push(id);
+        }
+        return copy;
+      });
+    } else {
+      setOpenTextFiles((prev) => {
         const copy = [...prev];
         if (!copy.includes(id)) {
           copy.push(id);
@@ -79,6 +89,9 @@ export const Icon = ({
       break;
     case 'pdf':
       iconImage = PdfIcon;
+      break;
+    case 'text':
+      iconImage = TextIcon;
       break;
     default:
       iconImage =
