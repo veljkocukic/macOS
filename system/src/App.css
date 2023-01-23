@@ -271,6 +271,14 @@
   font-size: 1rem;
 }
 
+.open-file-container_main--bottom{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
+  gap:1rem
+}
+
 .scroll-container{
   -ms-overflow-style: none;
   scrollbar-width: none;  

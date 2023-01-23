@@ -9,9 +9,15 @@ import { ExpandIcon } from '../assets/ExpandIcon';
 import { MinusIcon } from '../assets/MinusIcon';
 import { RecentsIcon } from '../assets/RecentsIcon';
 import { XIcon } from '../assets/XIcon';
+import { Icon } from './Icon/Icon';
 import { SideMenuContainer } from './SideMenuContainer';
 
-export const OpenFolder = ({ file, setOpenFolders, setItemsFullScreen }) => {
+export const OpenFolder = ({
+  file,
+  setOpenFolders,
+  setItemsFullScreen,
+  setBinOpen,
+}) => {
   const favList = [
     { icon: <AirDropIcon />, label: 'AirDrop' },
     { icon: <RecentsIcon />, label: 'Recents' },
@@ -41,6 +47,9 @@ export const OpenFolder = ({ file, setOpenFolders, setItemsFullScreen }) => {
   };
 
   const handleClose = () => {
+    if (file.name === 'Bin') {
+      setBinOpen(false);
+    }
     setOpenFolders((prev) => {
       let copy = [...prev];
       copy = copy.filter((id) => id !== file.id);
@@ -109,6 +118,19 @@ export const OpenFolder = ({ file, setOpenFolders, setItemsFullScreen }) => {
           </div>
           <h3>{file.name}</h3>
           <div className='options-container'></div>
+        </div>
+        <div className='open-file-container_main--bottom'>
+          {file.content.map((i) => (
+            <Icon
+              type={i.type}
+              text={i.name}
+              id={i.id}
+              file={i}
+              key={i.id}
+              style={{ position: 'relative', height: '60px' }}
+              undraggable
+            />
+          ))}
         </div>
       </div>
     </div>

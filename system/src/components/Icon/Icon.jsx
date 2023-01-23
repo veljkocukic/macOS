@@ -12,6 +12,8 @@ export const Icon = ({
   type,
   newFolder,
   file,
+  undraggable,
+  style,
 }) => {
   const [highlight, setHighlight] = useState(false);
   const [nameEditing, setNameEditing] = useState(newFolder);
@@ -54,29 +56,32 @@ export const Icon = ({
     setHighlight(true);
 
     if (type === 'folder') {
-      setOpenFolders((prev) => {
-        const copy = [...prev];
-        if (!copy.includes(id)) {
-          copy.push(id);
-        }
-        return copy;
-      });
+      setOpenFolders &&
+        setOpenFolders((prev) => {
+          const copy = [...prev];
+          if (!copy.includes(id)) {
+            copy.push(id);
+          }
+          return copy;
+        });
     } else if (type === 'pdf') {
-      setOpenPdfs((prev) => {
-        const copy = [...prev];
-        if (!copy.includes(id)) {
-          copy.push(id);
-        }
-        return copy;
-      });
+      setOpenPdfs &&
+        setOpenPdfs((prev) => {
+          const copy = [...prev];
+          if (!copy.includes(id)) {
+            copy.push(id);
+          }
+          return copy;
+        });
     } else {
-      setOpenTextFiles((prev) => {
-        const copy = [...prev];
-        if (!copy.includes(id)) {
-          copy.push(id);
-        }
-        return copy;
-      });
+      setOpenTextFiles &&
+        setOpenTextFiles((prev) => {
+          const copy = [...prev];
+          if (!copy.includes(id)) {
+            copy.push(id);
+          }
+          return copy;
+        });
     }
   };
 
@@ -127,9 +132,9 @@ export const Icon = ({
       onBlur={handleBlur}
       onDragStart={onDragStart}
       onClick={handleClick}
-      draggable
+      draggable={!undraggable}
       onDrag={handleDrag}
-      style={position}
+      style={{ ...position, ...style }}
       className={cName}
     >
       <img draggable='false' src={iconImage} alt='' />

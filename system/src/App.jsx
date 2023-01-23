@@ -19,6 +19,7 @@ function App() {
   const [desktopFiles, setDesktopFiles] = useState(files);
   const [itemsFullScreen, setItemsFullScreen] = useState([]);
   const [trash, setTrash] = useState([]);
+  const [binOpen, setBinOpen] = useState(false);
 
   const handleRightClick = (e) => {
     e.preventDefault();
@@ -68,7 +69,7 @@ function App() {
     >
       <TopBar disappear={itemsFullScreen.length > 0} />
       {desktopFiles.map((file) => {
-        return !trash.some((id) => id == file.id) ? (
+        return !trash.some((t) => t.id === file.id) ? (
           <Icon
             type={file.type}
             text={file.name}
@@ -111,10 +112,24 @@ function App() {
       {menuOpen && (
         <RightClickMenu options={menuOptions} position={menuPosition} />
       )}
+      {binOpen && (
+        <OpenFolder
+          setBinOpen={setBinOpen}
+          key={'bin'}
+          setOpenFolders={setOpenFolders}
+          file={{
+            id: 'bin',
+            name: 'Bin',
+            type: 'bin',
+            content: trash,
+          }}
+          setItemsFullScreen={setItemsFullScreen}
+        />
+      )}
       <BottomBar
-        setDesktopFiles={setDesktopFiles}
         trash={trash}
         setTrash={setTrash}
+        setBinOpen={setBinOpen}
         disappear={itemsFullScreen.length > 0}
       />
     </div>
