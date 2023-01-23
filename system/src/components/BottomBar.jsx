@@ -14,6 +14,7 @@ export const BottomBar = ({ disappear, trash, setTrash }) => {
   }
 
   const onDragOver = (e) => {
+    e.preventDefault();
     setItemOver(true);
   };
 
@@ -21,12 +22,29 @@ export const BottomBar = ({ disappear, trash, setTrash }) => {
     setItemOver(false);
   };
 
+  const onDragEnter = (e) => {
+    e.preventDefault();
+  };
+
+  const onDrop = (e) => {
+    const data = e.dataTransfer.getData('data');
+    setTrash((prev) => {
+      const copy = [...prev];
+      copy.push(JSON.parse(data).id);
+      return copy;
+    });
+    setItemOver(false);
+  };
+
   return (
     <div className={cName}>
       <div
+        tabIndex={1}
         className={'bottom-bar-item ' + binCName}
         onDragOver={onDragOver}
+        onDragEnter={onDragEnter}
         onDragLeave={onDragLeave}
+        onDrop={onDrop}
       >
         <img
           src={trash.length > 0 ? FullBin : EmptyBin}

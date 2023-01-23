@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import './App.css';
 import { BottomBar } from './components/BottomBar';
 import { Icon } from './components/Icon/Icon';
@@ -7,7 +7,6 @@ import { OpenPdf } from './components/OpenPdf';
 import { OpenText } from './components/OpenText';
 import { RightClickMenu } from './components/RightClickMenu';
 import { TopBar } from './components/TopBar';
-import { DataContext } from './Context';
 import { files } from './files';
 
 function App() {
@@ -20,7 +19,6 @@ function App() {
   const [desktopFiles, setDesktopFiles] = useState(files);
   const [itemsFullScreen, setItemsFullScreen] = useState([]);
   const [trash, setTrash] = useState([]);
-  const { currentlyDragging, setCurrentlyDragging } = useContext(DataContext);
 
   const handleRightClick = (e) => {
     e.preventDefault();
@@ -44,7 +42,6 @@ function App() {
         content: [],
         defaultPosition: { top: e.clientY, left: e.clientX },
       });
-      console.log(copy);
       return copy;
     });
   };
@@ -71,11 +68,12 @@ function App() {
     >
       <TopBar disappear={itemsFullScreen.length > 0} />
       {desktopFiles.map((file) => {
-        return (
+        return !trash.some((id) => id == file.id) ? (
           <Icon
             type={file.type}
             text={file.name}
             id={file.id}
+            file={file}
             key={file.id}
             defaultPosition={file.defaultPosition}
             setOpenTextFiles={setOpenTextFiles}
@@ -83,7 +81,7 @@ function App() {
             setOpenPdfs={setOpenPdfs}
             newFolder={!files.some((f) => f.id === file.id)}
           />
-        );
+        ) : null;
       })}
       {openFolders.map((id) => (
         <OpenFolder
@@ -114,6 +112,7 @@ function App() {
         <RightClickMenu options={menuOptions} position={menuPosition} />
       )}
       <BottomBar
+        setDesktopFiles={setDesktopFiles}
         trash={trash}
         setTrash={setTrash}
         disappear={itemsFullScreen.length > 0}

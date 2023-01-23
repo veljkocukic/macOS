@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { DataContext } from '../../Context';
+import React, { useEffect, useRef, useState } from 'react';
 import PdfIcon from '../../assets/pdf-icon.png';
 import TextIcon from '../../assets/ticon.png';
 
@@ -12,6 +11,7 @@ export const Icon = ({
   setOpenPdfs,
   type,
   newFolder,
+  file,
 }) => {
   const [highlight, setHighlight] = useState(false);
   const [nameEditing, setNameEditing] = useState(newFolder);
@@ -19,7 +19,6 @@ export const Icon = ({
   const [currentPosition, setCurrentPosition] = useState(defaultPosition);
   const [name, setName] = useState(text);
   const inputRef = useRef();
-  const { currentlyDragging, setCurrentlyDragging } = useContext(DataContext);
 
   useEffect(() => {
     if (nameEditing) {
@@ -117,11 +116,16 @@ export const Icon = ({
     setHighlight(false);
   };
 
+  const onDragStart = (e) => {
+    e.dataTransfer.setData('data', JSON.stringify(file));
+  };
+
   return (
     <div
       onDoubleClick={handleDoubleClick}
       tabIndex='1'
       onBlur={handleBlur}
+      onDragStart={onDragStart}
       onClick={handleClick}
       draggable
       onDrag={handleDrag}
