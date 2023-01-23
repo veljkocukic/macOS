@@ -53,6 +53,20 @@
   font-weight: bold;
 }
 
+.icon-container input{
+  border: 3px solid #1d6290;
+  border-radius: 5px;
+  color: white;
+  max-width: min-content;
+  text-align: center;
+  transform: translate(0, 0);
+  font-size:.8rem;
+  font-weight: bold;
+  background:transparent;
+  padding:.1rem .1rem;
+  min-width: 2rem !important;
+}
+
 .open-folder-container{
   display: flex;
   min-width: 60%;

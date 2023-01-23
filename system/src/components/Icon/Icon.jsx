@@ -1,21 +1,51 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-export const Icon = ({ text, id, defaultPosition, setOpenFolders, type }) => {
+export const Icon = ({
+  text,
+  id,
+  defaultPosition,
+  setOpenFolders,
+  type,
+  newFolder,
+}) => {
   const [highlight, setHighlight] = useState(false);
+  const [nameEditing, setNameEditing] = useState(newFolder);
   const [position, setPosition] = useState(defaultPosition);
   const [currentPosition, setCurrentPosition] = useState(defaultPosition);
+  const [name, setName] = useState(text);
+  const inputRef = useRef();
+
+  useEffect(() => {
+    if (nameEditing) {
+      inputRef.current.focus();
+    }
+  }, [nameEditing]);
+
+  useEffect(() => {
+    const keyDownHandler = (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        setNameEditing(false);
+      }
+    };
+
+    document.addEventListener('keydown', keyDownHandler);
+
+    return () => {
+      document.removeEventListener('keydown', keyDownHandler);
+    };
+  }, []);
+
   const handleDrag = (e) => {
     setHighlight(true);
-    if (
-      !(defaultPosition.top === e.clientX && e.clientY === defaultPosition.left)
-    ) {
+    if (!(0 === e.clientX && e.clientY === 0)) {
       setCurrentPosition({ top: e.clientY - 35, left: e.clientX - 35 });
     } else {
       setPosition(currentPosition);
     }
   };
 
-  const handleDoubleClick = (e) => {
+  const handleDoubleClick = () => {
     setHighlight(true);
     setOpenFolders((prev) => {
       const copy = [...prev];
@@ -24,7 +54,6 @@ export const Icon = ({ text, id, defaultPosition, setOpenFolders, type }) => {
       }
       return copy;
     });
-    e.stopPropagination();
   };
 
   let iconImage = '';
@@ -47,19 +76,37 @@ export const Icon = ({ text, id, defaultPosition, setOpenFolders, type }) => {
     setHighlight(true);
   };
 
+  const handleName = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleBlur = () => {
+    setNameEditing(false);
+    setHighlight(false);
+  };
+
   return (
     <div
       onDoubleClick={handleDoubleClick}
       tabIndex='1'
+      onBlur={handleBlur}
       onClick={handleClick}
-      onBlur={() => setHighlight(false)}
       draggable
       onDrag={handleDrag}
       style={position}
       className={cName}
     >
       <img draggable='false' src={iconImage} alt='' />
-      <p>{text}</p>
+      {!nameEditing ? (
+        <p>{name}</p>
+      ) : (
+        <input
+          ref={inputRef}
+          value={name || ''}
+          onChange={handleName}
+          style={{ width: name.length + 'em' }}
+        />
+      )}
     </div>
   );
 };

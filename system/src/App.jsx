@@ -10,6 +10,7 @@ function App() {
   const [openFolders, setOpenFolders] = useState([]);
   const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
   const [menuOpen, setMenuOpen] = useState(false);
+  const [desktopFiles, setDesktopFiles] = useState(files);
   const handleRightClick = (e) => {
     e.preventDefault();
     if (e.type === 'contextmenu') {
@@ -22,10 +23,31 @@ function App() {
     setMenuOpen(false);
   };
 
+  const createNewFolder = (e) => {
+    setDesktopFiles((prev) => {
+      const copy = [...prev];
+      copy.push({
+        id: copy.length + 1,
+        name: 'New Folder',
+        type: 'folder',
+        content: [],
+        defaultPosition: { top: e.clientY, left: e.clientX },
+      });
+      console.log(copy);
+      return copy;
+    });
+  };
+
   const menuOptions = [
-    [{ label: 'New Folder' }],
+    [{ label: 'New Folder', func: createNewFolder }],
     [{ label: 'Get Info' }, { label: 'Change Wallpaper...' }],
-    [{ label: 'Use Stacks' }, { label: 'Sort By' }],
+    [
+      { label: 'Use Stacks' },
+      { label: 'Sort By' },
+      { label: 'Clean Up' },
+      { label: 'Clean Up By' },
+      { label: 'Show View Options' },
+    ],
   ];
 
   return (
@@ -35,7 +57,7 @@ function App() {
       onClick={handleClick}
       onContextMenu={handleRightClick}
     >
-      {files.map((file) => {
+      {desktopFiles.map((file) => {
         return (
           <Icon
             type={file.type}
@@ -44,6 +66,7 @@ function App() {
             key={file.id}
             defaultPosition={file.defaultPosition}
             setOpenFolders={setOpenFolders}
+            newFolder={!files.some((f) => f.id === file.id)}
           />
         );
       })}
@@ -51,7 +74,7 @@ function App() {
         <OpenFolder
           key={id}
           setOpenFolders={setOpenFolders}
-          file={files.find((f) => f.id === id)}
+          file={desktopFiles.find((f) => f.id === id)}
         />
       ))}
       {menuOpen && (
