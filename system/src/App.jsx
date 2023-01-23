@@ -1,8 +1,10 @@
 import { useRef, useState } from 'react';
 import './App.css';
+import { BottomBar } from './components/BottomBar';
 import { Icon } from './components/Icon/Icon';
 import { OpenFolder } from './components/OpenFolder';
 import { RightClickMenu } from './components/RightClickMenu';
+import { TopBar } from './components/TopBar';
 import { files } from './files';
 
 function App() {
@@ -57,6 +59,7 @@ function App() {
       onClick={handleClick}
       onContextMenu={handleRightClick}
     >
+      <TopBar />
       {desktopFiles.map((file) => {
         return (
           <Icon
@@ -80,6 +83,7 @@ function App() {
       {menuOpen && (
         <RightClickMenu options={menuOptions} position={menuPosition} />
       )}
+      <BottomBar />
     </div>
   );
 }

@@ -11,10 +11,11 @@
   position: relative;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url('https://images.pexels.com/photos/1428277/pexels-photo-1428277.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+  background-image: url('/Users/developer/Documents/GitHub/system-app/system/src/assets/default-bg.jpg');
 }
 
 .icon-container{
+  outline: none;
   width:100px;
   display: flex;
   flex-direction: column;
@@ -323,4 +324,65 @@
 .right-click-menu-container_section .section-option:hover{
   background-color:#0058d1;
   border-radius: 5px;
+}
+
+.bottom-bar-container{
+  position: absolute;
+  bottom:10px;
+  border-radius: 25px;
+  height: 5rem;
+  width: 10rem;
+  background-color: #24242793;
+  backdrop-filter: blur(20px);
+  border: .3px solid #505258;
+  left:50%;
+  transform: translateX(-50%);
+}
+
+.top-bar-container{
+  width: 100%;
+  display: flex;
+  position: absolute;
+  top:0;
+  left: 0;
+  justify-content: space-between;
+  align-items: center;
+  background: transparent;
+  padding: 0 .5rem;
+  font-size: .85rem;
+}
+
+.top-bar-current-program{
+  display: flex;
+  align-items: center;
+}
+
+.top-bar-current-program__option{
+  padding: .3rem .8rem;
+  border-radius: 5px;
+  color: white;
+  user-select: none;
+}
+
+.top-bar-current-program__option svg{
+  width: 1rem;
+  height: 1rem;
+}
+
+.top-bar-current-program__option:nth-child(2){
+  font-weight: bold;
+}
+
+.top-bar-current-program__option:hover{
+  background-color: #272b32;
+}
+
+.top-bar-icons-right{
+  display: flex;
+  align-items: center;
+  gap:1rem;
+}
+
+.time-date p{
+  color: white;
 }
