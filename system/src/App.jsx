@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import './App.css';
 import { BottomBar } from './components/BottomBar';
 import { Icon } from './components/Icon/Icon';
+import { OpenBrowser } from './components/OpenBrowser';
 import { OpenFolder } from './components/OpenFolder';
 import { OpenPdf } from './components/OpenPdf';
 import { OpenText } from './components/OpenText';
@@ -14,6 +15,7 @@ function App() {
   const [openFolders, setOpenFolders] = useState([]);
   const [openPdfs, setOpenPdfs] = useState([]);
   const [openTextFiles, setOpenTextFiles] = useState([]);
+  const [openBrowser, setOpenBrowser] = useState(false);
   const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
   const [menuOpen, setMenuOpen] = useState(false);
   const [desktopFiles, setDesktopFiles] = useState(files);
@@ -81,6 +83,7 @@ function App() {
             setOpenFolders={setOpenFolders}
             setOpenPdfs={setOpenPdfs}
             newFolder={!files.some((f) => f.id === file.id)}
+            setOpenBrowser={setOpenBrowser}
           />
         ) : null;
       })}
@@ -123,6 +126,12 @@ function App() {
             type: 'bin',
             content: trash,
           }}
+          setItemsFullScreen={setItemsFullScreen}
+        />
+      )}
+      {openBrowser && (
+        <OpenBrowser
+          setOpenBrowser={setOpenBrowser}
           setItemsFullScreen={setItemsFullScreen}
         />
       )}

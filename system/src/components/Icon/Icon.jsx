@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PdfIcon from '../../assets/pdf-icon.png';
 import TextIcon from '../../assets/ticon.png';
+import SafariIcon from '../../assets/safari.png';
 
 export const Icon = ({
   text,
@@ -8,6 +9,7 @@ export const Icon = ({
   setOpenTextFiles,
   defaultPosition,
   setOpenFolders,
+  setOpenBrowser,
   setOpenPdfs,
   type,
   newFolder,
@@ -73,6 +75,8 @@ export const Icon = ({
           }
           return copy;
         });
+    } else if (type === 'safari') {
+      setOpenBrowser(true);
     } else {
       setOpenTextFiles &&
         setOpenTextFiles((prev) => {
@@ -96,6 +100,9 @@ export const Icon = ({
       break;
     case 'text':
       iconImage = TextIcon;
+      break;
+    case 'safari':
+      iconImage = SafariIcon;
       break;
     default:
       iconImage =

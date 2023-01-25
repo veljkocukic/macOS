@@ -37,7 +37,6 @@ export const OpenPdf = ({ setOpenPdfs, file, setItemsFullScreen }) => {
       } else {
         copy.push(file.id);
       }
-      console.log(copy);
       return copy;
     });
   };

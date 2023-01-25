@@ -5,7 +5,7 @@ export const files = [
     id: 1,
     name: 'About me',
     type: 'folder',
-    content: [{ type: 'text', text: 'text_inside' }],
+    content: [],
     defaultPosition: { top: 50, left: 5 },
   },
   {
@@ -21,5 +21,11 @@ export const files = [
     type: 'text',
     content: 'Some placeholder text for now',
     defaultPosition: { top: 260, left: 5 },
+  },
+  {
+    id: 'safari',
+    name: 'Projects',
+    type: 'safari',
+    defaultPosition: { top: 50, left: 90 },
   },
 ];
