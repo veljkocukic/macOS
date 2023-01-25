@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import FullBin from '../assets/images/Recycle_Bin_Full_23081.png';
 import EmptyBin from '../assets/images/Recycle_Bin_Empty_23082.png';
+import { DataContext } from '../Context';
+import { RightClickMenu } from './RightClickMenu';
 
-export const BottomBar = ({ disappear, trash, setTrash, setBinOpen }) => {
+export const BottomBar = ({ disappear, setBinOpen, setDesktopFiles }) => {
   const [itemOver, setItemOver] = useState(false);
+  const { menuState, setMenuState, trash, setTrash } = useContext(DataContext);
+
   let cName = 'bottom-bar-container';
   let binCName = 'recycle-bin';
   if (disappear) {
@@ -36,12 +40,37 @@ export const BottomBar = ({ disappear, trash, setTrash, setBinOpen }) => {
     setItemOver(false);
   };
 
-  const handleBinClick = () => {
+  const handleBinClick = (e) => {
+    e.stopPropagation();
     setBinOpen(true);
+  };
+
+  const emptyBin = () => {
+    setTrash([]);
+    setDesktopFiles((prev) => {
+      let copy = [...prev];
+      for (let item of trash) {
+        copy = copy.filter((i) => i.id !== item.id);
+      }
+      return copy;
+    });
+  };
+
+  const handleMenuOpen = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    if (e.type === 'contextmenu') {
+      setMenuState({
+        isOpen: true,
+        options: [[{ label: 'Empty Bin', func: emptyBin }]],
+        position: { top: e.clientY, left: e.clientX },
+      });
+    }
   };
 
   return (
     <div className={cName}>
+      {menuState.isOpen && <RightClickMenu />}
       <div
         tabIndex={1}
         className={'bottom-bar-item ' + binCName}
@@ -49,7 +78,8 @@ export const BottomBar = ({ disappear, trash, setTrash, setBinOpen }) => {
         onDragEnter={onDragEnter}
         onDragLeave={onDragLeave}
         onDrop={onDrop}
-        onMouseDown={handleBinClick}
+        onContextMenu={handleMenuOpen}
+        onClick={handleBinClick}
       >
         <img
           src={trash.length > 0 ? FullBin : EmptyBin}

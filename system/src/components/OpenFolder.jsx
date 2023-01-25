@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { AirDropIcon } from '../assets/AirDropIcon';
 import { ChevronIcon } from '../assets/ChevronIcon';
 import { CloudIcon } from '../assets/CloudIcon';
@@ -9,6 +9,7 @@ import { ExpandIcon } from '../assets/ExpandIcon';
 import { MinusIcon } from '../assets/MinusIcon';
 import { RecentsIcon } from '../assets/RecentsIcon';
 import { XIcon } from '../assets/XIcon';
+import { DataContext } from '../Context';
 import { Icon } from './Icon/Icon';
 import { SideMenuContainer } from './SideMenuContainer';
 
@@ -16,6 +17,7 @@ export const OpenFolder = ({
   file,
   setOpenFolders,
   setItemsFullScreen,
+  setDesktopFiles,
   setBinOpen,
 }) => {
   const favList = [
@@ -31,6 +33,7 @@ export const OpenFolder = ({
   ];
   const [fullScreen, setFullScreen] = useState(false);
   const [navigateVisible, setNavigateVisible] = useState(false);
+  const { setTrash, trash } = useContext(DataContext);
 
   let navCName = 'navigate-circle';
   if (navigateVisible) {
@@ -65,6 +68,17 @@ export const OpenFolder = ({
         copy = copy.filter((id) => id !== file.id);
       } else {
         copy.push(file.id);
+      }
+      return copy;
+    });
+  };
+
+  const emptyBin = () => {
+    setTrash([]);
+    setDesktopFiles((prev) => {
+      let copy = [...prev];
+      for (let item of trash) {
+        copy = copy.filter((i) => i.id !== item.id);
       }
       return copy;
     });
@@ -108,6 +122,9 @@ export const OpenFolder = ({
       </div>
       <div className='open-file-container_main'>
         <div className='open-file-container_main--top'>
+          <div className='empty-bin-button' onClick={emptyBin}>
+            <p>Empty Bin</p>
+          </div>
           <div className='chevron-container'>
             <div className='chevron-back'>
               <ChevronIcon />

@@ -12,6 +12,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url('/Users/developer/Documents/GitHub/system-app/system/src/assets/default-bg.jpg');
+  overflow: hidden;
 }
 
 .icon-container{
@@ -241,8 +242,24 @@
   height: 50px;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
+.empty-bin-button{
+  position: absolute;
+  top:50%;
+  right: 20px;
+  border: .3px solid #505258;
+  border-radius: 5px;
+  transform: translateY(-50%);
+  padding: .13rem .4rem;
+}
+
+.empty-bin-button p{
+  color: white;
+  font-size: .7rem;
+  user-select: none;
+}
 
 .open-file-container_main--top .chevron-container{
   display: flex;
@@ -294,7 +311,6 @@
 .right-click-menu-container{
   position: absolute;
   width: 200px;
-  min-height: 100px;
   background-color: #242427bf;
   backdrop-filter: blur(20px);
   display: flex;
@@ -302,6 +318,7 @@
   padding: .24rem;
   border:.5px solid #505258;
   border-radius: 5px;
+  z-index: 99999;
 }
 
 
@@ -423,6 +440,7 @@
 .bottom-bar-item{
   max-height: 90%;
   transition: .2s ease-out;
+  position: absolute;
 }
 
 .bottom-bar-item img {

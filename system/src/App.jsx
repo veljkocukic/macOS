@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import './App.css';
 import { BottomBar } from './components/BottomBar';
 import { Icon } from './components/Icon/Icon';
@@ -8,6 +8,7 @@ import { OpenPdf } from './components/OpenPdf';
 import { OpenText } from './components/OpenText';
 import { RightClickMenu } from './components/RightClickMenu';
 import { TopBar } from './components/TopBar';
+import { DataContext } from './Context';
 import { files } from './files';
 
 function App() {
@@ -16,23 +17,24 @@ function App() {
   const [openPdfs, setOpenPdfs] = useState([]);
   const [openTextFiles, setOpenTextFiles] = useState([]);
   const [openBrowser, setOpenBrowser] = useState(false);
-  const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
-  const [menuOpen, setMenuOpen] = useState(false);
   const [desktopFiles, setDesktopFiles] = useState(files);
   const [itemsFullScreen, setItemsFullScreen] = useState([]);
-  const [trash, setTrash] = useState([]);
   const [binOpen, setBinOpen] = useState(false);
+  const { menuState, setMenuState, trash } = useContext(DataContext);
 
   const handleRightClick = (e) => {
     e.preventDefault();
     if (e.type === 'contextmenu') {
-      setMenuPosition({ top: e.clientY, left: e.clientX });
-      setMenuOpen(true);
+      setMenuState({
+        isOpen: true,
+        options: menuOptions,
+        position: { top: e.clientY, left: e.clientX },
+      });
     }
   };
 
   const handleClick = () => {
-    setMenuOpen(false);
+    setMenuState({ isOpen: false });
   };
 
   const createNewFolder = (e) => {
@@ -112,9 +114,7 @@ function App() {
         />
       ))}
 
-      {menuOpen && (
-        <RightClickMenu options={menuOptions} position={menuPosition} />
-      )}
+      {menuState.isOpen && <RightClickMenu />}
       {binOpen && (
         <OpenFolder
           setBinOpen={setBinOpen}
@@ -126,6 +126,7 @@ function App() {
             type: 'bin',
             content: trash,
           }}
+          setDesktopFiles={setDesktopFiles}
           setItemsFullScreen={setItemsFullScreen}
         />
       )}
@@ -137,9 +138,9 @@ function App() {
       )}
       <BottomBar
         trash={trash}
-        setTrash={setTrash}
         setBinOpen={setBinOpen}
         disappear={itemsFullScreen.length > 0}
+        setDesktopFiles={setDesktopFiles}
       />
     </div>
   );
