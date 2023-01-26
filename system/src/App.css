@@ -31,6 +31,7 @@
 .highlight p {
   background-color: #0058d1;
   padding: .2rem;
+  user-select: none;
   border-radius: 5px;
 }
 
@@ -53,6 +54,7 @@
   transform: translate(0, 0);
   font-size:.8rem;
   font-weight: bold;
+  user-select: none;
 }
 
 .icon-container input{
@@ -200,7 +202,6 @@
   font-size:.7rem;
   font-weight: bold;
   user-select: none;
-  
 }
 
 .folder-items-container_list{
@@ -286,6 +287,7 @@
 .open-file-container_main--top h3{
   color: #e8e8e8;
   font-size: 1rem;
+  user-select: none;
 }
 
 .open-file-container_main--bottom{
@@ -410,6 +412,7 @@
 
 .time-date p{
   color: white;
+  user-select: none;
 }
 
 
@@ -491,7 +494,7 @@
 
 .open-pdf-container-top h3{
   color:white;
-  
+  user-select: none;
 }
 
 .open-pdf-container-main{
@@ -744,6 +747,7 @@
 .open-anagram-app-container_top h3{
   color:white;
   font-size: 1rem;
+  user-select: none;
   margin-left: 1rem;
 }
 
@@ -789,6 +793,7 @@
 .open-anagram-app-container-main p{
   margin-top: 1rem;
   color: white;
+  user-select: none;
 }
 
 .open-anagram-app-container_top-buttons{

@@ -3,6 +3,13 @@ import CV from './assets/CV.png';
 export const files = [
   {
     id: 1,
+    name: 'Curriculum Vitae',
+    type: 'pdf',
+    content: CV,
+    defaultPosition: { top: 50, left: 5 },
+  },
+  {
+    id: 2,
     name: 'Apps',
     type: 'folder',
     content: [
@@ -18,14 +25,7 @@ export const files = [
         defaultPosition: { top: 260, left: 5 },
       },
     ],
-    defaultPosition: { top: 50, left: 5 },
-  },
-  {
-    id: 2,
-    name: 'Curriculum Vitae',
-    type: 'pdf',
-    content: CV,
-    defaultPosition: { top: 150, left: 5 },
+    defaultPosition: { top: 160, left: 5 },
   },
 
   {
