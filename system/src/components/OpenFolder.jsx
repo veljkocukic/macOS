@@ -19,6 +19,7 @@ export const OpenFolder = ({
   setItemsFullScreen,
   setDesktopFiles,
   setBinOpen,
+  isBin,
 }) => {
   const favList = [
     { icon: <AirDropIcon />, label: 'AirDrop' },
@@ -122,9 +123,11 @@ export const OpenFolder = ({
       </div>
       <div className='open-file-container_main'>
         <div className='open-file-container_main--top'>
-          <div className='empty-bin-button' onClick={emptyBin}>
-            <p>Empty Bin</p>
-          </div>
+          {isBin && (
+            <div className='empty-bin-button' onClick={emptyBin}>
+              <p>Empty Bin</p>
+            </div>
+          )}
           <div className='chevron-container'>
             <div className='chevron-back'>
               <ChevronIcon />
@@ -137,13 +140,13 @@ export const OpenFolder = ({
           <div className='options-container'></div>
         </div>
         <div className='open-file-container_main--bottom'>
-          {file.content.map((i) => (
+          {file.content.map((i, j) => (
             <Icon
               type={i.type}
               text={i.name}
               id={i.id}
               file={i}
-              key={i.id}
+              key={j}
               style={{ position: 'relative', height: '60px' }}
               undraggable
             />

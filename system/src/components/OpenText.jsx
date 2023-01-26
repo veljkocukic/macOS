@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { ExpandIcon } from '../assets/ExpandIcon';
 import { MinusIcon } from '../assets/MinusIcon';
 import { XIcon } from '../assets/XIcon';
+import { DataContext } from '../Context';
 
-export const OpenText = ({ file, setOpenTextFiles, setItemsFullScreen }) => {
+export const OpenText = ({ file, setItemsFullScreen }) => {
   const [fullScreen, setFullScreen] = useState(false);
   const [navigateVisible, setNavigateVisible] = useState(false);
+  const { setOpenTextFiles } = useContext(DataContext);
 
   let navCName = 'navigate-circle';
   if (navigateVisible) {
@@ -24,7 +26,7 @@ export const OpenText = ({ file, setOpenTextFiles, setItemsFullScreen }) => {
   const handleClose = () => {
     setOpenTextFiles((prev) => {
       let copy = [...prev];
-      copy = copy.filter((id) => id !== file.id);
+      copy = copy.filter((f) => f.id !== file.id);
       return copy;
     });
   };

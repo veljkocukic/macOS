@@ -2,6 +2,7 @@ import { useContext, useRef, useState } from 'react';
 import './App.css';
 import { BottomBar } from './components/BottomBar';
 import { Icon } from './components/Icon/Icon';
+import { OpenAnagramApp } from './components/OpenAnagramApp';
 import { OpenBrowser } from './components/OpenBrowser';
 import { OpenFolder } from './components/OpenFolder';
 import { OpenPdf } from './components/OpenPdf';
@@ -15,12 +16,12 @@ function App() {
   const backgroundRef = useRef();
   const [openFolders, setOpenFolders] = useState([]);
   const [openPdfs, setOpenPdfs] = useState([]);
-  const [openTextFiles, setOpenTextFiles] = useState([]);
   const [openBrowser, setOpenBrowser] = useState(false);
   const [desktopFiles, setDesktopFiles] = useState(files);
   const [itemsFullScreen, setItemsFullScreen] = useState([]);
   const [binOpen, setBinOpen] = useState(false);
-  const { menuState, setMenuState, trash } = useContext(DataContext);
+  const { menuState, setMenuState, trash, anagramOpen, openTextFiles } =
+    useContext(DataContext);
 
   const handleRightClick = (e) => {
     e.preventDefault();
@@ -81,7 +82,6 @@ function App() {
             file={file}
             key={file.id}
             defaultPosition={file.defaultPosition}
-            setOpenTextFiles={setOpenTextFiles}
             setOpenFolders={setOpenFolders}
             setOpenPdfs={setOpenPdfs}
             newFolder={!files.some((f) => f.id === file.id)}
@@ -105,11 +105,10 @@ function App() {
           setItemsFullScreen={setItemsFullScreen}
         />
       ))}
-      {openTextFiles.map((id) => (
+      {openTextFiles.map((file) => (
         <OpenText
-          key={id}
-          setOpenTextFiles={setOpenTextFiles}
-          file={desktopFiles.find((f) => f.id === id)}
+          key={file.id}
+          file={file}
           setItemsFullScreen={setItemsFullScreen}
         />
       ))}
@@ -128,6 +127,7 @@ function App() {
           }}
           setDesktopFiles={setDesktopFiles}
           setItemsFullScreen={setItemsFullScreen}
+          isBin={true}
         />
       )}
       {openBrowser && (
@@ -136,6 +136,10 @@ function App() {
           setItemsFullScreen={setItemsFullScreen}
         />
       )}
+      {anagramOpen && (
+        <OpenAnagramApp setItemsFullScreen={setItemsFullScreen} />
+      )}
+
       <BottomBar
         trash={trash}
         setBinOpen={setBinOpen}

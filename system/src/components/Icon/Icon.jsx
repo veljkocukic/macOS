@@ -1,12 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import PdfIcon from '../../assets/pdf-icon.png';
 import TextIcon from '../../assets/ticon.png';
 import SafariIcon from '../../assets/safari.png';
+import AnagramIcon from '../../assets/AnagramIcon.png';
+import { DataContext } from '../../Context';
 
 export const Icon = ({
   text,
   id,
-  setOpenTextFiles,
   defaultPosition,
   setOpenFolders,
   setOpenBrowser,
@@ -22,6 +23,7 @@ export const Icon = ({
   const [position, setPosition] = useState(defaultPosition);
   const [currentPosition, setCurrentPosition] = useState(defaultPosition);
   const [name, setName] = useState(text);
+  const { setAnagramOpen, setOpenTextFiles } = useContext(DataContext);
   const inputRef = useRef();
 
   useEffect(() => {
@@ -56,7 +58,6 @@ export const Icon = ({
 
   const handleDoubleClick = () => {
     setHighlight(true);
-
     if (type === 'folder') {
       setOpenFolders &&
         setOpenFolders((prev) => {
@@ -77,12 +78,14 @@ export const Icon = ({
         });
     } else if (type === 'safari') {
       setOpenBrowser(true);
+    } else if (type === 'anagram') {
+      setAnagramOpen(true);
     } else {
       setOpenTextFiles &&
         setOpenTextFiles((prev) => {
           const copy = [...prev];
-          if (!copy.includes(id)) {
-            copy.push(id);
+          if (!copy.some((tf) => tf.id === file.id)) {
+            copy.push(file);
           }
           return copy;
         });
@@ -103,6 +106,9 @@ export const Icon = ({
       break;
     case 'safari':
       iconImage = SafariIcon;
+      break;
+    case 'anagram':
+      iconImage = AnagramIcon;
       break;
     default:
       iconImage =
@@ -132,9 +138,14 @@ export const Icon = ({
     e.dataTransfer.setData('data', JSON.stringify(file));
   };
 
+  const handleRightClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
   return (
     <div
       onDoubleClick={handleDoubleClick}
+      onContextMenu={handleRightClick}
       tabIndex='1'
       onBlur={handleBlur}
       onDragStart={onDragStart}

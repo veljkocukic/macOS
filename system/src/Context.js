@@ -10,9 +10,22 @@ export let MainProvider = (props) => {
   });
 
   const [trash, setTrash] = useState([]);
+  const [anagramOpen, setAnagramOpen] = useState(false);
+  const [openTextFiles, setOpenTextFiles] = useState([]);
 
   return (
-    <DataContext.Provider value={{ menuState, setMenuState, trash, setTrash }}>
+    <DataContext.Provider
+      value={{
+        menuState,
+        setMenuState,
+        trash,
+        setTrash,
+        anagramOpen,
+        setAnagramOpen,
+        openTextFiles,
+        setOpenTextFiles,
+      }}
+    >
       {props.children}
     </DataContext.Provider>
   );

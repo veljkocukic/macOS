@@ -44,7 +44,7 @@ export const projects = [
   {
     name: 'Healthy',
     img: Healthy,
-    link: 'https://healtyapp2.netlify.app/main',
+    link: 'https://healtyapp2.netlify.app/',
   },
   {
     name: 'Map Pointer',
