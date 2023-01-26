@@ -469,7 +469,13 @@
   border: .3px solid #505258;
   transition:.2s ease-in;
   overflow: hidden;
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
   background-color: #282828;
+}
+
+.open-pdf-container::-webkit-scrollbar {
+  display: none;
 }
 
 .pdf-full-screen{
@@ -596,7 +602,13 @@
   overflow: hidden;
   border: .3px solid #505258;
   transition:.2s ease-in;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
   z-index: 99;
+}
+
+.open-browser-container::-webkit-scrollbar {
+  display: none;
 }
 
 .open-browser-container_top{
@@ -644,7 +656,7 @@
   flex-direction: column;
   background-color: #242427bf;
   backdrop-filter: blur(20px);
-  padding: 5rem 10rem;
+  padding: 5rem 12rem;
   overflow: auto;
 }
 
@@ -667,8 +679,10 @@
 
 .browser-content_items-grid{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(13rem, 16rem));
-  gap:.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 14rem));
+  align-items: center;
+  justify-items: center;
+  gap:1rem;
 }
 
 .browser-content_items-grid-item{
