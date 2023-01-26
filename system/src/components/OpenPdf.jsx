@@ -21,6 +21,13 @@ export const OpenPdf = ({ setOpenPdfs, file, setItemsFullScreen }) => {
   }
 
   const handleClose = () => {
+    setItemsFullScreen((prev) => {
+      let copy = [...prev];
+      if (copy.includes(file.id)) {
+        copy = copy.filter((id) => id !== file.id);
+      }
+      return copy;
+    });
     setOpenPdfs((prev) => {
       let copy = [...prev];
       copy = copy.filter((id) => id !== file.id);

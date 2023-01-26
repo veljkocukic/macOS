@@ -30,6 +30,13 @@ export const OpenAnagramApp = ({ setItemsFullScreen }) => {
 
   const handleClose = () => {
     setAnagramOpen(false);
+    setItemsFullScreen((prev) => {
+      let copy = [...prev];
+      if (copy.includes('safari')) {
+        copy = copy.filter((id) => id !== 'safari');
+      }
+      return copy;
+    });
   };
   const handleFullScreen = () => {
     setFullScreen((prev) => !prev);

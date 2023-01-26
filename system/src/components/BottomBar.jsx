@@ -11,7 +11,7 @@ export const BottomBar = ({ disappear, setBinOpen, setDesktopFiles }) => {
   let cName = 'bottom-bar-container';
   let binCName = 'recycle-bin';
   if (disappear) {
-    cName += '_disappear';
+    cName += ' disappear-bottom';
   }
   if (itemOver) {
     binCName += '_darken';

@@ -54,6 +54,13 @@ export const OpenFolder = ({
     if (file.name === 'Bin') {
       setBinOpen(false);
     }
+    setItemsFullScreen((prev) => {
+      let copy = [...prev];
+      if (copy.includes(file.id)) {
+        copy = copy.filter((id) => id !== file.id);
+      }
+      return copy;
+    });
     setOpenFolders((prev) => {
       let copy = [...prev];
       copy = copy.filter((id) => id !== file.id);

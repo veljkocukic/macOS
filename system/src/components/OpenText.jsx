@@ -24,6 +24,13 @@ export const OpenText = ({ file, setItemsFullScreen }) => {
   };
 
   const handleClose = () => {
+    setItemsFullScreen((prev) => {
+      let copy = [...prev];
+      if (copy.includes(file.id)) {
+        copy = copy.filter((id) => id !== file.id);
+      }
+      return copy;
+    });
     setOpenTextFiles((prev) => {
       let copy = [...prev];
       copy = copy.filter((f) => f.id !== file.id);

@@ -24,6 +24,13 @@ export const OpenBrowser = ({ setOpenBrowser, setItemsFullScreen }) => {
 
   const handleClose = () => {
     setOpenBrowser(false);
+    setItemsFullScreen((prev) => {
+      let copy = [...prev];
+      if (copy.includes('safari')) {
+        copy = copy.filter((id) => id !== 'safari');
+      }
+      return copy;
+    });
   };
   const handleFullScreen = () => {
     setFullScreen((prev) => !prev);
