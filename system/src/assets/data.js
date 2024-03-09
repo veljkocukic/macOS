@@ -8,6 +8,7 @@ import VDateLib from './VDateLib.png';
 import VDate from './VDate.png';
 import FormValidator from './FormValidator.png';
 import Shelter from './Shelter.png';
+import CalausApp from './CalausApp.png';
 
 export const daysOfTheWeek = ['Mon', 'Thu', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
 
@@ -26,6 +27,11 @@ export const months = [
 ];
 
 export const projects = [
+  {
+    name:'Calaus Application',
+    img:CalausApp,
+    link:'https://calaus.vercel.app/sajt'
+  },
   {
     name: 'Vehicle Module',
     img: VechicleModule,

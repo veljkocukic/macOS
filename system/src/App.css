@@ -11,7 +11,7 @@
   position: relative;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url('/Users/developer/Documents/GitHub/system-app/system/src/assets/default-bg.jpg');
+  background-image: url('https://images.unsplash.com/photo-1581610186406-5f6e9f9edbc1?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
   overflow: hidden;
 }
 
@@ -727,8 +727,8 @@
 }
 .browser-content_note p{
   color: white;
-  font-size: .8rem;
-  line-height: 1.2rem;
+  font-size: 0.9rem;
+  line-height: 1.4rem;
   user-select: none;
 }
 
