@@ -48,6 +48,7 @@ export const Icon = ({
   }, []);
 
   const handleDrag = (e) => {
+    e.preventDefault()
     setHighlight(true);
     if (!(0 === e.clientX && e.clientY === 0)) {
       setCurrentPosition({ top: e.clientY - 35, left: e.clientX - 35 });
@@ -149,6 +150,7 @@ export const Icon = ({
       tabIndex='1'
       onBlur={handleBlur}
       onDragStart={onDragStart}
+      onDragEnd={(e)=>e.preventDefault()}
       onClick={handleClick}
       draggable={!undraggable}
       onDrag={handleDrag}

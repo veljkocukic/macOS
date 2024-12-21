@@ -86,7 +86,7 @@ export const OpenBrowser = ({ setOpenBrowser, setItemsFullScreen }) => {
           <div className="browser-content_note">
             <InfoIcon />
             <p>
-              Project shown bellow are not part of my professional work but
+              Most project shown bellow are not part of my professional work but
               rather side projects. Most of my work was done for the companies I
               worked for so I couldn't put it here but I would gladly discuss
               those on the interview. Calaus Application is the only serious

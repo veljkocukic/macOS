@@ -9,6 +9,8 @@ import VDate from './VDate.png';
 import FormValidator from './FormValidator.png';
 import Shelter from './Shelter.png';
 import CalausApp from './CalausApp.png';
+import Sasa from './barber.png';
+import Aim from './aim.png';
 
 export const daysOfTheWeek = ['Mon', 'Thu', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
 
@@ -17,6 +19,7 @@ export const months = [
   'Feb',
   'Mar',
   'Apr',
+  'May',
   'Jun',
   'Jul',
   'Aut',
@@ -28,19 +31,34 @@ export const months = [
 
 export const projects = [
   {
+    name:'AIM Website (unofficial)',
+    img:Aim,
+    link:'https://honestdig.io/'
+  },
+  {
+    name:'Local Barber Shop Web Site',
+    img:Sasa,
+    link:'http://sasabarber.com/'
+  },
+  {
     name:'Calaus Application',
     img:CalausApp,
     link:'https://calaus.vercel.app/sajt'
   },
   {
-    name: 'Vehicle Module',
-    img: VechicleModule,
-    link: 'https://mikroe-vehicle.vercel.app/',
+    name: 'VDate Site',
+    img: VDate,
+    link: 'https://vdate.netlify.app',
   },
   {
     name: 'React Week Picker',
     img: WeekPicker,
     link: 'https://github.com/veljkocukic/react-week-picker',
+  },
+  {
+    name: 'Vehicle Module',
+    img: VechicleModule,
+    link: 'https://mikroe-vehicle.vercel.app/',
   },
   {
     name: 'Theme App',
@@ -61,11 +79,6 @@ export const projects = [
     name: 'VDate Library',
     img: VDateLib,
     link: 'https://www.npmjs.com/package/vdate',
-  },
-  {
-    name: 'VDate Site',
-    img: VDate,
-    link: 'https://vdate.netlify.app',
   },
   {
     name: 'Album Search',
