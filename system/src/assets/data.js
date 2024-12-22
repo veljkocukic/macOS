@@ -12,7 +12,7 @@ import CalausApp from './CalausApp.png';
 import Sasa from './barber.png';
 import Aim from './aim.png';
 
-export const daysOfTheWeek = ['Mon', 'Thu', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
+export const daysOfTheWeek = ['Sun', 'Mon', 'Thu', 'Wed', 'Thur', 'Fri', 'Sat', ];
 
 export const months = [
   'Jan',

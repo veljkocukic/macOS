@@ -151,6 +151,7 @@ export const Icon = ({
       onBlur={handleBlur}
       onDragStart={onDragStart}
       onDragEnd={(e)=>e.preventDefault()}
+      onDrop={(e)=>e.preventDefault()}
       onClick={handleClick}
       draggable={!undraggable}
       onDrag={handleDrag}

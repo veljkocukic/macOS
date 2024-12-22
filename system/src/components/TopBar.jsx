@@ -16,7 +16,7 @@ export const TopBar = ({ disappear }) => {
 
   const getTimeDate = () => {
     const now = new Date();
-    return `${daysOfTheWeek[now.getDay() - 1]} ${now.getDate()} ${
+    return `${daysOfTheWeek[now.getDay()]} ${now.getDate()} ${
       months[now.getMonth()]
     } ${addZero(now.getHours())}:${addZero(now.getMinutes())}`;
   };
